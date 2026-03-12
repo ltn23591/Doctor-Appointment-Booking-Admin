@@ -7,7 +7,6 @@ const Login = () => {
     const { setAtoken, backendUrl } = useContext(AdminContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    console.log(backendUrl + '/api/admin/login');
     const onSubmitHandle = async (e) => {
         e.preventDefault();
         try {
@@ -18,15 +17,14 @@ const Login = () => {
                 );
                 if (data.success) {
                     localStorage.setItem('atoken', data.token);
-                    setAtoken(data.success);
-                }else{
-                     toast.error(data.message);
+                    setAtoken(data.token);
+                } else {
+                    toast.error(data.message);
                 }
-            } else {
-               
             }
         } catch (error) {
-            
+            toast.error(error.message);
+            console.log(error);
         }
     };
     return (
